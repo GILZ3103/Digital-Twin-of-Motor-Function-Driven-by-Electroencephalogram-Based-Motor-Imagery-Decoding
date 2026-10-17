@@ -1,0 +1,349 @@
+entries:
+  - url: https://github.com/mne-tools/mne-lsl
+    name: mne-tools/mne-lsl
+    module: M1
+    phase: 1
+    rig_fit: "Win11 + Jetson; pure Python"
+    verdict: adopt
+    extract: "PlayerLSL — replays PhysioNet .edf as a correctly-paced live LSL stream. This IS Module 1; do not hand-roll it."
+    liveness: "active"
+    license: BSD-3
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/mne-tools/mne-python
+    name: mne-tools/mne-python
+    module: M1/M2
+    phase: 1
+    rig_fit: "Win11 + Jetson; pure Python"
+    verdict: adopt
+    extract: "Core substrate under braindecode, moabb and mne-lsl. Filtering, epoching, montage/channel handling."
+    liveness: "active"
+    license: BSD-3
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/braindecode/braindecode
+    name: braindecode/braindecode
+    module: M2
+    phase: 2
+    rig_fit: "Win11 + Jetson; PyTorch"
+    verdict: adopt
+    extract: "EEGNetv4 in PyTorch + native MOABB integration — the ONNX-exportable path."
+    liveness: "active"
+    license: BSD-3
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/vlawhern/arl-eegmodels
+    name: vlawhern/arl-eegmodels
+    module: M2
+    phase: 2
+    rig_fit: "Keras/TF; no ONNX export built in"
+    verdict: read
+    extract: "Canonical EEGNet reference (Keras). Architecture ground truth."
+    liveness: "unclear"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/NeuroTechX/moabb
+    name: NeuroTechX/moabb
+    module: M2
+    phase: 2
+    rig_fit: "Win11 + Jetson; pure Python"
+    verdict: adopt
+    extract: "PhysioNet MI and BCI-IV-2a loaders plus within/cross-session evaluation protocols."
+    liveness: "active"
+    license: BSD-3
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/MHersche/eegnet-based-embedded-bci
+    name: MHersche/eegnet-based-embedded-bci
+    module: M2
+    phase: 2
+    rig_fit: "embedded target work"
+    verdict: vendor
+    extract: "main_ss.py — subject-specific transfer learning on the exact PhysioNet dataset."
+    liveness: "unclear"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/NVIDIA-AI-IOT/torch2trt
+    name: NVIDIA-AI-IOT/torch2trt
+    module: M2
+    phase: 2
+    rig_fit: "JetPack-L4T"
+    verdict: adopt
+    extract: "PyTorch→TensorRT conversion. Caveat: depthwise/separable convs may need custom converters."
+    liveness: "active"
+    license: MIT
+    stars: null
+    failure_yield: "Depthwise/separable convs (as used in EEGNet) may need custom converters — check before committing to this path."
+    last_checked: 2026-07-26
+
+  - url: https://github.com/iis-eth-zurich/eeg-tcnet
+    name: iis-eth-zurich/eeg-tcnet
+    module: M2
+    phase: 2
+    rig_fit: "reference only"
+    verdict: read
+    extract: "INT8 quantisation methodology and accuracy-vs-bits numbers for TensorRT calibration."
+    liveness: "unclear"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/pulp-platform/q-eegnet
+    name: pulp-platform/q-eegnet
+    module: M2
+    phase: 2
+    rig_fit: "reference only"
+    verdict: read
+    extract: "INT8 quantisation methodology and accuracy-vs-bits numbers for TensorRT calibration."
+    liveness: "unclear"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/Unity-Technologies/ROS-TCP-Connector
+    name: Unity-Technologies/ROS-TCP-Connector
+    module: M3
+    phase: 3
+    rig_fit: "TCP only — no UDP (issue #375)"
+    verdict: read
+    extract: "Message-gen patterns; hand-roll the UDP layer instead."
+    liveness: "active"
+    license: Apache-2.0
+    stars: null
+    failure_yield: "Issue #375 confirms no UDP support — must hand-roll UDP layer for M3."
+    last_checked: 2026-07-26
+
+  - url: https://github.com/simplefoc/Arduino-FOC
+    name: simplefoc/Arduino-FOC
+    module: M4
+    phase: 4
+    rig_fit: "ESP32 native"
+    verdict: adopt
+    extract: "ESP32 FOC torque control for a DIY backdrivable joint."
+    liveness: "active"
+    license: MIT
+    stars: 2900
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/odriverobotics/ODrive
+    name: odriverobotics/ODrive
+    module: M4
+    phase: 4
+    rig_fit: "needs its own board"
+    verdict: read
+    extract: "Higher-power alternative."
+    liveness: "active"
+    license: MIT
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/mjbots/moteus
+    name: mjbots/moteus
+    module: M4
+    phase: 4
+    rig_fit: "needs its own board"
+    verdict: read
+    extract: "QDD alternative."
+    liveness: "active"
+    license: "Apache-2.0 (hw CERN-OHL)"
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/ROBOTIS-GIT/DynamixelSDK
+    name: ROBOTIS-GIT/DynamixelSDK
+    module: M4
+    phase: 4
+    rig_fit: "smart servo, needs U2D2/UART"
+    verdict: read
+    extract: "Current-control mode examples."
+    liveness: "active"
+    license: Apache-2.0
+    stars: null
+    failure_yield: "goal_current is a limiter, not a direct torque command — see fyp-troubleshoot."
+    last_checked: 2026-07-26
+
+  - url: https://github.com/naubiomech/OpenExo
+    name: naubiomech/OpenExo
+    module: M4
+    phase: 4
+    rig_fit: "full open assistive exo: firmware + GUI + apps"
+    verdict: vendor
+    extract: "Nearest complete fast-loop + actuator reference."
+    liveness: "active"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/rommelaraujo/HERO_actuator_control
+    name: rommelaraujo/HERO_actuator_control
+    module: M4
+    phase: 4
+    rig_fit: "actuator firmware only"
+    verdict: read
+    extract: "The one published EEG-driven hand exo with public code — actuator firmware only; EEG side lives in the paper, not the repo."
+    liveness: "unclear"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/opensim-org/opensim-core
+    name: opensim-org/opensim-core
+    module: M5
+    phase: 5
+    rig_fit: "slow loop engine"
+    verdict: adopt
+    extract: "Slow-loop engine. Moco is merged in; the standalone repo is archived."
+    liveness: "active"
+    license: Apache-2.0
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/mitkof6/OpenSimRT
+    name: mitkof6/OpenSimRT
+    module: M5
+    phase: 5
+    rig_fit: "template for slow->fast bridge"
+    verdict: read
+    extract: "Real-time IK/ID/muscle optimisation ~90 Hz, <55 ms. Template for the slow→fast bridge."
+    liveness: "unclear"
+    license: GPL-3.0
+    stars: null
+    failure_yield: "GPL-3.0 — copyleft, note for thesis publication."
+    last_checked: 2026-07-26
+
+  - url: https://github.com/MyoHub/myosuite
+    name: MyoHub/myosuite
+    module: M5
+    phase: 5
+    rig_fit: "RL sandbox"
+    verdict: adopt
+    extract: "Musculoskeletal RL sandbox."
+    liveness: "active"
+    license: Apache-2.0
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/neumovelab/myoassist
+    name: neumovelab/myoassist
+    module: M5
+    phase: 5
+    rig_fit: "targets exoskeleton assistance policies specifically"
+    verdict: adopt
+    extract: "MyoAssist targets exoskeleton assistance policies specifically."
+    liveness: "active"
+    license: unknown
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/neuropsychology/NeuroKit
+    name: neuropsychology/NeuroKit
+    module: "§6"
+    phase: 6
+    rig_fit: "pure Python"
+    verdict: adopt
+    extract: "emg_activation / emg_amplitude — onset detection and envelope for the deferred EMG effort channel."
+    liveness: "active"
+    license: MIT
+    stars: null
+    failure_yield: ""
+    last_checked: 2026-07-26
+
+  - url: https://github.com/DephyInc/Actuator-Package
+    name: DephyInc/Actuator-Package
+    module: M4
+    phase: 4
+    rig_fit: "Requires Dephy's own actuator boards (own MCU, RS-485/USB host API) — NOT ESP32-native. Would replace the ESP32 inner loop, not run alongside it."
+    verdict: read
+    extract: "FlexSEA electronics-architecture reference: 8A/25A motor driver + safety co-processor + strain-gauge amplifier + IMU on one board, all feeding a Python host API. Reference for how a real production SEA integrates strain-gauge effort sensing — not adoptable as code since it assumes Dephy hardware."
+    liveness: "active; 946 commits on develop"
+    license: MIT
+    stars: null
+    failure_yield: "Whole ecosystem (actuator + controller + strain amp) is one vertically-integrated Dephy product — cannot mix-and-match with a generic ESP32 + gimbal-motor build."
+    last_checked: 2026-07-28
+
+  - url: https://github.com/COMANDLab/SEA_Exoskeleton
+    name: COMANDLab/SEA_Exoskeleton (OpenSEA)
+    module: M4
+    phase: 4
+    rig_fit: "Arduino Uno + PlatformIO, brushed DC gearmotor — portable to ESP32 but as-published is a different MCU/motor class (elbow-scale, 4.12 Nm stall, 26 RPM)."
+    verdict: read
+    extract: "Open 3D-printed planetary-gear SEA BOM + PID firmware, ±2.109 Nm spring range. Useful as a cost/BOM template for a finger-scale SEA IF the effort-sensing decision favours SEA — but repo is thin (12 commits, 0 stars) and the README excerpt only confirms one encoder 'integrated with the motor'; a true SEA needs a second encoder on the spring/output side for deflection-based torque sensing — verify this exists before vendoring."
+    liveness: "new; published Feb 2025, 12 commits, 0 stars"
+    license: "unclear — not stated in fetched content, verify before any thesis reuse"
+    stars: 0
+    failure_yield: "No control-loop bandwidth reported in the paper — cannot confirm this design clears the ~30 Hz SEA bandwidth ceiling seen elsewhere without independent testing."
+    last_checked: 2026-07-28
+
+  - url: https://github.com/ITregear/SeriesElasticActuation-FYP
+    name: ITregear/SeriesElasticActuation-FYP
+    module: M4
+    phase: 4
+    rig_fit: "Two Arduino Unos + RMD X8 V2 BLDC + magnetic encoder + custom torsional spring — not ESP32/Jetson, but architecture (motor-side + output-side encoder) ports directly."
+    verdict: read
+    extract: "Solo-FYP-scale SEA build with a measured bandwidth number: 10.32 Hz open-loop -> 30.32 Hz closed-loop (2.93x). This is the reference figure for 'how much bandwidth does a spring cost you' when sizing the virtual-spring loop rate. Also reports SEA force accuracy beating an ATI Gamma reference transducer by 7.63% at ~£25 vs a lab-grade load cell."
+    liveness: "unclear — Master's project snapshot, no date visible; no explicit license, 'may be used freely' per README"
+    license: "unstated — treat as all-rights-reserved for thesis-publication purposes until confirmed"
+    stars: null
+    failure_yield: "SEA closed-loop bandwidth ceiling ~30 Hz even in a dedicated build — budget this against the virtual-spring loop-rate requirement before committing to SEA."
+    last_checked: 2026-07-28
+
+  - url: https://github.com/newdexterity/Hybrid-Exoskeleton-Glove
+    name: newdexterity/Hybrid-Exoskeleton-Glove
+    module: M4
+    phase: 4
+    rig_fit: "Standalone Robotis OpenCM9.04 MCU (ARM, Arduino-toolchain compatible) + Bluetooth — not ROS-dependent, ports conceptually to ESP32."
+    verdict: read
+    extract: "Tendon-driven finger actuation using 5x Dynamixel XM430-W350-T pulling UHMWPE braided tendon rated to 500 N, plus a pneumatic layer for abduction/thumb. Useful for tendon-routing and pretension geometry, not for the actuator-route decision itself (still uses geared Dynamixel current mode, same fidelity caveat as Route 1)."
+    liveness: "60 commits, 0 stars visible; date unclear"
+    license: CC-BY-4.0
+    stars: 0
+    failure_yield: ""
+    last_checked: 2026-07-28
+
+  - url: https://github.com/ROBOTIS-GIT/dynamixel-workbench
+    name: ROBOTIS-GIT/dynamixel-workbench
+    module: M4
+    phase: 4
+    rig_fit: "ROS-oriented wrapper around DynamixelSDK — read for the issue trail only, prefer raw DynamixelSDK for a non-ROS ESP32/Jetson rig."
+    verdict: read
+    extract: "Issue trail only — no code to take. Confirms the current-mode fidelity problem from a second, independent codebase/user base."
+    liveness: "active"
+    license: Apache-2.0
+    stars: null
+    failure_yield: "Issue #182: current-based POSITION control (not pure current mode) reportedly let torque exceed Goal_Current, unresolved upstream — do not trust Dynamixel-side current limits as a safety clamp in any mode. Issue #334/#351: present-current readings reported as implausibly high in current-control mode on OpenManipulator-X hardware — cross-check present_current against an independent sensor before trusting it for effort estimation."
+    last_checked: 2026-07-28
+
+rejected:
+  - url: https://github.com/openbci-archive/OpenBCI_LSL
+    reason: "archived by maintainer; superseded by the BrainFlow to LSL bridge"
+    last_checked: 2026-07-26
+  - url: https://github.com/aliasvishnu/EEGNet
+    reason: "author explicitly labels it an old version"
+    last_checked: 2026-07-26
+  - url: https://github.com/opensim-org/opensim-moco
+    reason: "merged into opensim-core; README redirects there"
+    last_checked: 2026-07-26

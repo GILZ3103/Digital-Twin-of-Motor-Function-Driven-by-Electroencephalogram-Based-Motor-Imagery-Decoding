@@ -1,0 +1,5 @@
+# written by the scheduled thesis-scout run every 3 days
+tools/*.log
+
+# fyp-orchestrate scratch: ledgers, briefs, reports, review diffs
+.runs/

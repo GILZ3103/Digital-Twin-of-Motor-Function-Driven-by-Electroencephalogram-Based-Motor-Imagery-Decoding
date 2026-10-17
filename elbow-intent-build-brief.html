@@ -1,0 +1,1048 @@
+<title>Elbow Intent Twin Build Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Build brief for Claude Code: everything agreed for the Elbow Intent Twin software.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: sticky contents rail on wide screens, one reading column; tables, code and diagrams scroll inside their own boxes. */
+:root{
+  --bg:#F4F6F7;--surface:#FFFFFF;--ink:#14202A;--muted:#566472;--line:#D5DCE1;--code:#EBEFF2;
+  --accent:#0A746F;--accent-bg:#E1F2F0;
+  --amber:#9A5A00;--amber-bg:#FAEFDB;
+  --safety:#AE2A20;--safety-bg:#FBE8E5;
+  --ok:#2C6E31;--ok-bg:#E4F1E4;
+  --f-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-cond:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F151A;--surface:#151E25;--ink:#E3E9ED;--muted:#9BA9B4;--line:#2B3943;--code:#1B262E;
+  --accent:#5CC4BA;--accent-bg:#11302D;--amber:#E9A94D;--amber-bg:#33260F;
+  --safety:#F2958B;--safety-bg:#3A1B18;--ok:#86C98A;--ok-bg:#17301A;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151A;--surface:#151E25;--ink:#E3E9ED;--muted:#9BA9B4;--line:#2B3943;--code:#1B262E;
+  --accent:#5CC4BA;--accent-bg:#11302D;--amber:#E9A94D;--amber-bg:#33260F;
+  --safety:#F2958B;--safety-bg:#3A1B18;--ok:#86C98A;--ok-bg:#17301A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.62;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1100px;margin:0 auto}
+@media (min-width:1020px){.wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}}
+.toc{padding-top:32px}
+@media (max-width:1019px){.toc{display:none}}
+.mtoc{display:none;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:10px 14px;margin:4px 0 8px}
+@media (max-width:1019px){.mtoc{display:block}}
+.mtoc summary{cursor:pointer;font-weight:600;font-size:15px}
+.mtoc ol{margin:10px 0 4px;padding-left:26px;font-size:15px;columns:2 200px;column-gap:20px}
+.mtoc li{break-inside:avoid}
+.mtoc a{color:var(--ink);text-decoration:none}
+@media (min-width:1020px){.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 0px);align-self:start;max-height:100vh;overflow:auto;padding-bottom:32px}}
+.toc p{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:t -1}
+@media (max-width:1019px){.toc ol{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));column-gap:16px}}
+.toc li{counter-increment:t}
+.toc a{display:grid;grid-template-columns:24px 1fr;color:var(--muted);text-decoration:none;font-size:14px;padding:3px 0;border-radius:4px}
+.toc a::before{content:counter(t);font-family:var(--f-mono);font-size:12px;padding-top:2px}
+.toc a:hover,.toc a:focus-visible{color:var(--ink)}
+main{min-width:0;max-width:780px}
+header.top{padding:40px 0 8px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h1{font-family:var(--f-cond);font-weight:600;font-size:clamp(30px,5vw,40px);line-height:1.1;margin:0 0 14px;text-wrap:balance}
+h2{font-family:var(--f-cond);font-weight:600;font-size:25px;line-height:1.2;margin:0 0 12px;text-wrap:balance;display:flex;gap:12px;align-items:baseline}
+h2 .n{font-family:var(--f-mono);font-weight:500;font-size:14px;color:var(--muted);min-width:22px}
+h3{font-size:17px;font-weight:600;margin:28px 0 8px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol.plain{margin:0 0 14px;padding-left:22px}
+li{margin:3px 0}
+a{color:var(--accent)}
+code,kbd{font-family:var(--f-mono);font-size:.88em;background:var(--code);padding:1px 5px;border-radius:4px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted);margin:0 0 18px}
+.meta b{color:var(--ink);font-weight:500}
+.lede{font-size:18px;max-width:64ch}
+section{padding-top:44px;scroll-margin-top:12px}
+section+section{border-top:1px solid var(--line);margin-top:44px}
+.tbl{overflow-x:auto;margin:6px 0 18px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font-weight:600;font-size:13px;color:var(--muted);background:var(--code)}
+tr:last-child td{border-bottom:0}
+td code{white-space:nowrap}
+.num{font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.call{border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:0;background:var(--surface);padding:14px 16px;margin:6px 0 18px}
+.call p:last-child,.call ul:last-child,.call ol:last-child{margin-bottom:0}
+.call.safety{border-left-color:var(--safety);background:var(--safety-bg)}
+.call.ai{border-left-color:var(--accent);background:var(--accent-bg)}
+.call.amber{border-left-color:var(--amber);background:var(--amber-bg)}
+.call h4{margin:0 0 6px;font-size:14px;font-weight:600}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;white-space:nowrap;letter-spacing:.02em}
+.chip.agreed{background:var(--ok-bg);color:var(--ok)}
+.chip.open{background:var(--amber-bg);color:var(--amber)}
+.chip.deferred{background:var(--code);color:var(--muted)}
+.ph{font-family:var(--f-mono);font-size:11px;color:var(--amber);border:1px solid var(--amber);border-radius:4px;padding:0 4px;margin-left:4px;white-space:nowrap}
+.code{margin:6px 0 18px;border:1px solid var(--line);border-radius:8px;background:var(--code);overflow:hidden}
+.code .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px 6px 12px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.code pre{margin:0;padding:12px 14px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;white-space:pre;color:var(--ink)}
+button{font:inherit;font-size:12.5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.prompt{border:1px solid var(--accent);border-radius:10px;background:var(--surface);margin:8px 0 18px;overflow:hidden}
+.prompt .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px 10px 16px;background:var(--accent-bg);border-bottom:1px solid var(--accent)}
+.prompt .bar strong{font-size:14px;font-weight:600}
+.prompt pre{margin:0;padding:14px 16px;font-family:var(--f-mono);font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.fig{overflow-x:auto;margin:8px 0 6px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:6px 0}
+.fig svg{display:block;min-width:600px;width:100%;height:auto}
+.cap{font-size:13.5px;color:var(--muted);margin:0 0 18px}
+.dg text{font-family:var(--f-sans);fill:var(--ink)}
+.dg .t{font-size:14px;font-weight:500}
+.dg .s{font-size:12px;fill:var(--muted)}
+.dg .bx{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.dg .bx-ai{fill:var(--accent-bg);stroke:var(--accent);stroke-width:1}
+.dg .bx-am{fill:var(--amber-bg);stroke:var(--amber);stroke-width:1}
+.dg .bx-sf{fill:var(--safety-bg);stroke:var(--safety);stroke-width:1}
+.dg .bus{fill:var(--code);stroke:var(--line);stroke-width:1}
+.dg .ln{stroke:var(--muted);stroke-width:1.2;fill:none}
+.dg .dash{stroke-dasharray:4 3}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:6px 0 18px}
+.card{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:14px 16px;min-width:0}
+.card h4{margin:0 0 4px;font-size:15px;font-weight:600}
+.card p{font-size:14.5px;margin:0}
+dl.terms{display:grid;grid-template-columns:minmax(120px,180px) minmax(0,1fr);gap:8px 18px;margin:0;font-size:15px}
+dl.terms dt{font-weight:600}
+dl.terms dd{margin:0;color:var(--ink)}
+@media (max-width:560px){dl.terms{grid-template-columns:1fr}dl.terms dd{margin-bottom:8px}}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#start">How to use this brief</a></li>
+    <li><a href="#rules">Hard rules</a></li>
+    <li><a href="#project">The project</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#intent">Intent backbone</a></li>
+    <li><a href="#eeg">EEG decoder</a></li>
+    <li><a href="#emg">EMG decoder</a></li>
+    <li><a href="#compare">Rules vs AI study</a></li>
+    <li><a href="#supervisor">Safety supervisor</a></li>
+    <li><a href="#calibration">Calibration</a></li>
+    <li><a href="#advisor">LLM advisor</a></li>
+    <li><a href="#display">Display</a></li>
+    <li><a href="#repo">Repository layout</a></li>
+    <li><a href="#config">Config file</a></li>
+    <li><a href="#milestones">Milestones</a></li>
+    <li><a href="#decisions">Decision log</a></li>
+    <li><a href="#hardware">Hardware questions</a></li>
+    <li><a href="#evidence">Evidence and standards</a></li>
+    <li><a href="#terms">Terms</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <p class="eyebrow">Build brief · for Claude Code</p>
+  <h1>Elbow Intent Twin build brief</h1>
+  <div class="meta">
+    <span>Owner <b>Gilbert Lee</b></span>
+    <span>Version <b>1.0 · 17 Oct 2026</b></span>
+    <span>Stage <b>Software only, simulated signals</b></span>
+  </div>
+  <p class="lede">This page collects everything we agreed for the software of the Elbow Intent Twin. Give it to Claude Code as the single source of truth. Items marked <span class="chip open">Open</span> are not decided yet. Numbers marked <span class="ph">placeholder</span> go in the config file and must not be hard-coded.</p>
+  <p>This brief replaces the milestone list and the open-decisions table on the earlier demo page.</p>
+  <details class="mtoc">
+    <summary>Contents</summary>
+    <ol start="0">
+      <li><a href="#start">How to use this brief</a></li>
+      <li><a href="#rules">Hard rules</a></li>
+      <li><a href="#project">The project</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#intent">Intent backbone</a></li>
+      <li><a href="#eeg">EEG decoder</a></li>
+      <li><a href="#emg">EMG decoder</a></li>
+      <li><a href="#compare">Rules vs AI study</a></li>
+      <li><a href="#supervisor">Safety supervisor</a></li>
+      <li><a href="#calibration">Calibration</a></li>
+      <li><a href="#advisor">LLM advisor</a></li>
+      <li><a href="#display">Display</a></li>
+      <li><a href="#repo">Repository layout</a></li>
+      <li><a href="#config">Config file</a></li>
+      <li><a href="#milestones">Milestones</a></li>
+      <li><a href="#decisions">Decision log</a></li>
+      <li><a href="#hardware">Hardware questions</a></li>
+      <li><a href="#evidence">Evidence and standards</a></li>
+      <li><a href="#terms">Terms</a></li>
+    </ol>
+  </details>
+</header>
+
+<!-- 0 -->
+<section id="start">
+  <h2><span class="n">0</span>How to use this brief</h2>
+  <ol class="plain">
+    <li>Make an empty project folder, for example <code>elbow-twin</code>.</li>
+    <li>Save this page into it as <code>docs/elbow-intent-build-brief.html</code>.</li>
+    <li>Open Claude Code in that folder and paste the start prompt below. Fill in your Python version first.</li>
+    <li>Claude Code works one milestone at a time (section 14) and asks you at every open decision (section 15).</li>
+  </ol>
+  <div class="prompt">
+    <div class="bar"><strong>Start prompt for Claude Code</strong><button type="button" data-copy="p-start">Copy</button></div>
+<pre id="p-start">You are helping me build the Elbow Intent Twin, the software part of my final year project.
+Read docs/elbow-intent-build-brief.html completely before you write any code. It is the single source of truth.
+
+How we work:
+1. Work one milestone at a time, in the order of section 14. Before each milestone, tell me your plan in a few lines and wait for my OK.
+2. When you reach an item marked "Open" in the decision log (section 15), stop and ask me. Do not choose for me. You may use the listed default only inside tests and simulation, and you must tell me when you do.
+3. The hard rules in section 1 always apply. If something I ask conflicts with them, tell me before you act.
+4. Core logic goes in plain Python classes with a step() method and has unit tests. LSL, windows and hardware live only in thin adapter programs.
+5. Every number marked "placeholder" goes in config/session.yaml. Do not hard-code it.
+6. Do not write firmware, motor-driver or serial code until the hardware milestone, and only after I confirm that the hazard analysis is signed off.
+7. Never report accuracy from synthetic data as a result. Synthetic data only proves that the code works.
+8. After each milestone, run pytest, show me the result, and list what is still open.
+
+My Python version: [3.11 or 3.12]
+Start with milestone M0.</pre>
+  </div>
+</section>
+
+<!-- 1 -->
+<section id="rules">
+  <h2><span class="n">1</span>Hard rules</h2>
+  <p>These rules apply to every line of code. Safety comes first.</p>
+  <div class="call safety">
+    <h4>Safety</h4>
+    <ol class="plain">
+      <li><b>The supervisor decides.</b> Decoders, the intent estimator and the LLM only propose.</li>
+      <li><b>No AI in the fast loop.</b> The LLM works only between attempts, never in the 4 ms or 40 ms loops.</li>
+      <li><b>During an attempt, signals can only reduce help</b> (rule R6). Nothing raises motor help in the middle of an attempt.</li>
+      <li><b>Hard limits live in the microcontroller and the mechanics.</b> The laptop cannot change them while running.</li>
+      <li><b>The system must work with the LLM off.</b> Losing the LLM never changes motor behaviour.</li>
+      <li><b>The motor is off during calibration.</b></li>
+      <li><b>Simulation first.</b> Every fault has an automatic scenario test before any person wears the device.</li>
+      <li><b>Any change to a limit, rule or threshold needs the operator's confirmation</b> and is written to the log.</li>
+    </ol>
+  </div>
+  <div class="call">
+    <h4>Data and honesty</h4>
+    <ol class="plain">
+      <li><b>Only summaries leave the computer.</b> No raw EEG or EMG, no names, no video. Use coded IDs such as <code>P01</code>.</li>
+      <li><b>Every LLM call is logged</b> with the model ID, prompt, response and time. The model version is pinned.</li>
+      <li><b>Synthetic signals prove the software, not the decoding.</b> Real accuracy comes only from real recordings.</li>
+      <li><b>Recordings stay out of Git.</b> <code>recordings/</code> is in <code>.gitignore</code>.</li>
+      <li><b>The intended arm is a model of intent, not a reading of the brain.</b> Name it that way in code, on screen and in the report.</li>
+    </ol>
+  </div>
+  <div class="call amber">
+    <h4>Out of scope for Claude Code</h4>
+    <p>Firmware, motor drivers, electrode hardware, the clinical protocol and anything that touches a real person. The hardware teammate owns the hardware and signal acquisition.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="project">
+  <h2><span class="n">2</span>The project</h2>
+  <p>The twin shows two elbows side by side. The <b>intended arm</b> is built from EEG on the scalp and EMG on the arm. The <b>actual arm</b> comes from the encoder on a motor-assisted arm brace. The <b>gap</b> (intended minus actual) shows where the person reaches their limit, and it gates assist-as-needed motor help.</p>
+  <div class="grid2">
+    <div class="card"><h4>Scope now</h4><p>One degree of freedom: elbow flexion. Software only, with simulated signals. Healthy volunteers come next.</p></div>
+    <div class="card"><h4>Final users</h4><p>People in rehabilitation after a stroke. This needs a clinical partner and hospital ethics approval, so it is likely after this project.</p></div>
+    <div class="card"><h4>Owner</h4><p>Gilbert does the software. A teammate does the hardware and signal acquisition, discussed separately.</p></div>
+    <div class="card"><h4>Digital twin level</h4><p>The twin runs beside the real arm and predicts how it should move (Kritzinger 2018 levels: model, shadow, twin).</p></div>
+  </div>
+  <p>The FYP plan also uses "causal twin" for the real-time copy of the preprocessing pipeline. That is a different thing. Keep the two names apart in code and in the report.</p>
+</section>
+
+<!-- 3 -->
+<section id="architecture">
+  <h2><span class="n">3</span>Architecture</h2>
+  <p>The system runs in layers. Each layer has its own timing and its own authority. A faster layer never waits for a slower one.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Layer</th><th>Runs on</th><th>Timing</th><th>Job</th><th>Authority</th></tr></thead>
+    <tbody>
+      <tr><td>L0 Microcontroller</td><td>Arm brace</td><td class="num">~1 ms</td><td>Torque cap, speed cap, range stops, emergency stop, 50 ms heartbeat watchdog</td><td>Final. The laptop cannot override it.</td></tr>
+      <tr><td>L1 Supervisor</td><td>Laptop</td><td class="num">4 ms</td><td>State machine and rules R1–R10. Sends the motor command.</td><td>Decides motor help</td></tr>
+      <tr><td>L2 Decoders and intent estimator</td><td>Laptop</td><td class="num">40 ms</td><td>EEG and EMG to phase probabilities and the intended arm</td><td>Proposes</td></tr>
+      <tr><td>L3 Twin display</td><td>Laptop</td><td class="num">30–60 fps</td><td>Shows both arms, the gap and the system state</td><td>Reads only</td></tr>
+      <tr><td>L4 LLM advisor</td><td>Cloud, behind a plug-in interface</td><td class="num">seconds</td><td>Reads attempt summaries, proposes typed setting changes</td><td>Proposes. The supervisor checks, the operator approves.</td></tr>
+      <tr><td>L5 Session planning</td><td>Offline</td><td class="num">per session</td><td>Calibration, review, reports</td><td>People</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Programs and streams</h3>
+  <p>Each part is a small Python program. They share data as LSL streams with one clock, so every sample can be lined up later. When the hardware arrives, only <code>sim_world</code> is replaced. Nothing else changes.</p>
+  <div class="fig"><svg class="dg" viewBox="0 0 680 325" role="img"><title>Programs on the LSL bus</title><desc>Four programs publish and read streams on a shared LSL bus: sim_world, run_decoder, run_supervisor and run_advisor. The twin app and LabRecorder only read. The calibration app publishes cues.</desc>
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+    <rect class="bx" x="40" y="40" width="135" height="56" rx="8"/><text class="t" x="107.5" y="61" text-anchor="middle" dominant-baseline="central">sim_world</text><text class="s" x="107.5" y="80" text-anchor="middle" dominant-baseline="central">patient + arm</text>
+    <rect class="bx-ai" x="190" y="40" width="135" height="56" rx="8"/><text class="t" x="257.5" y="61" text-anchor="middle" dominant-baseline="central">run_decoder</text><text class="s" x="257.5" y="80" text-anchor="middle" dominant-baseline="central">intent, 25 Hz</text>
+    <rect class="bx-sf" x="340" y="40" width="135" height="56" rx="8"/><text class="t" x="407.5" y="61" text-anchor="middle" dominant-baseline="central">run_supervisor</text><text class="s" x="407.5" y="80" text-anchor="middle" dominant-baseline="central">rules, 250 Hz</text>
+    <rect class="bx-ai dash" x="490" y="40" width="135" height="56" rx="8"/><text class="t" x="557.5" y="61" text-anchor="middle" dominant-baseline="central">run_advisor</text><text class="s" x="557.5" y="80" text-anchor="middle" dominant-baseline="central">LLM, slow</text>
+    <line class="ln" x1="107.5" y1="100" x2="107.5" y2="136" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <line class="ln" x1="257.5" y1="100" x2="257.5" y2="136" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <line class="ln" x1="407.5" y1="100" x2="407.5" y2="136" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <line class="ln" x1="557.5" y1="100" x2="557.5" y2="136" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <rect class="bus" x="40" y="140" width="585" height="32" rx="6"/><text class="t" x="332.5" y="156" text-anchor="middle" dominant-baseline="central">LSL streams · one shared clock</text>
+    <line class="ln" x1="107.5" y1="176" x2="107.5" y2="210" marker-end="url(#ar)"/>
+    <line class="ln" x1="332.5" y1="176" x2="332.5" y2="210" marker-end="url(#ar)"/>
+    <line class="ln" x1="557.5" y1="210" x2="557.5" y2="176" marker-end="url(#ar)"/>
+    <rect class="bx" x="40" y="214" width="135" height="56" rx="8"/><text class="t" x="107.5" y="235" text-anchor="middle" dominant-baseline="central">twin_app</text><text class="s" x="107.5" y="254" text-anchor="middle" dominant-baseline="central">read only</text>
+    <rect class="bx" x="265" y="214" width="135" height="56" rx="8"/><text class="t" x="332.5" y="235" text-anchor="middle" dominant-baseline="central">LabRecorder</text><text class="s" x="332.5" y="254" text-anchor="middle" dominant-baseline="central">saves .xdf</text>
+    <rect class="bx" x="490" y="214" width="135" height="56" rx="8"/><text class="t" x="557.5" y="235" text-anchor="middle" dominant-baseline="central">run_calibration</text><text class="s" x="557.5" y="254" text-anchor="middle" dominant-baseline="central">cues, labels</text>
+    <rect class="bx-ai" x="40" y="293" width="14" height="14" rx="3"/><text class="s" x="62" y="300" dominant-baseline="central">learned or AI</text>
+    <rect class="bx-sf" x="170" y="293" width="14" height="14" rx="3"/><text class="s" x="192" y="300" dominant-baseline="central">decides motor help</text>
+    <rect class="bx dash" x="340" y="293" width="14" height="14" rx="3"/><text class="s" x="362" y="300" dominant-baseline="central">dashed = slow layer, outside the loop</text>
+  </svg></div>
+  <p class="cap">The microcontroller (L0) is hardware and is not drawn. Later, <code>arm_bridge</code> and the amplifier app replace <code>sim_world</code>.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Stream type</th><th>Made by</th><th>Read by</th><th>Contents</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td><code>EEG</code></td><td>sim_world, later the amplifier app</td><td>decoder, twin, recorder</td><td>8–16 channels over the motor area, µV</td><td class="num">500 Hz<span class="ph">placeholder</span></td></tr>
+      <tr><td><code>EMG</code></td><td>sim_world, later the amplifier</td><td>decoder, twin, recorder</td><td>Biceps, triceps, mV</td><td class="num">1000 Hz<span class="ph">placeholder</span></td></tr>
+      <tr><td><code>ArmState</code></td><td>sim_world, later arm_bridge</td><td>decoder, supervisor, twin, recorder</td><td>Angle, speed, motor torque, fault flags</td><td class="num">500 Hz</td></tr>
+      <tr><td><code>Intent</code></td><td>decoder</td><td>supervisor, twin, advisor, recorder</td><td>P(rest), P(attempt), P(release), EEG P(attempt), EMG effort, co-activation index, intended angle, quality flags</td><td class="num">25 Hz</td></tr>
+      <tr><td><code>MotorCommand</code></td><td>supervisor</td><td>sim_world (later arm_bridge), twin, recorder</td><td>Torque request in N·m, sequence number</td><td class="num">250 Hz</td></tr>
+      <tr><td><code>Events</code></td><td>supervisor, calibration app</td><td>twin, advisor, recorder</td><td>Cues, state changes, rule hits, faults, attempt summaries (JSON text markers)</td><td class="num">irregular</td></tr>
+      <tr><td><code>Advice</code></td><td>advisor</td><td>supervisor, twin, recorder</td><td>One typed proposal (JSON, section 10)</td><td class="num">irregular</td></tr>
+      <tr><td><code>OperatorCommand</code></td><td>twin (operator panel)</td><td>supervisor, advisor, recorder</td><td>Start, stop, approve, reject, undo, clear fault</td><td class="num">irregular</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Code pattern: logic first, connect later</h3>
+  <ul>
+    <li>Each core part is a plain Python class with a <code>step()</code> method. Numbers go in, numbers come out.</li>
+    <li>The core does not know about LSL, windows or hardware.</li>
+    <li>An adapter is a short program: it reads LSL, calls <code>step()</code> and writes LSL.</li>
+    <li>Tests call the core directly. A full simulated session runs in a few seconds, faster than real time.</li>
+  </ul>
+</section>
+
+<!-- 4 -->
+<section id="intent">
+  <h2><span class="n">4</span>Intent backbone</h2>
+  <p>Four sources of evidence feed fast learned decoders and an intent estimator. The estimator drives the intended arm and gives the supervisor a calibrated probability. The LLM advisor only adjusts settings between attempts.</p>
+  <div class="fig"><svg class="dg" viewBox="0 0 680 460" role="img"><title>Intent backbone</title><desc>EEG, EMG, arm encoder and task context feed decoders and an intent estimator. The estimator drives the intended arm and the safety supervisor. A slow LLM advisor adjusts the estimator's settings between attempts.</desc>
+    <defs><marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+    <line class="ln" x1="105" y1="98" x2="105" y2="136" marker-end="url(#ar2)"/>
+    <line class="ln" x1="255" y1="98" x2="255" y2="136" marker-end="url(#ar2)"/>
+    <line class="ln" x1="105" y1="198" x2="105" y2="236" marker-end="url(#ar2)"/>
+    <line class="ln" x1="255" y1="198" x2="255" y2="236" marker-end="url(#ar2)"/>
+    <line class="ln" x1="405" y1="98" x2="405" y2="236" marker-end="url(#ar2)"/>
+    <line class="ln" x1="555" y1="98" x2="555" y2="236" marker-end="url(#ar2)"/>
+    <line class="ln" x1="140" y1="298" x2="140" y2="336" marker-end="url(#ar2)"/>
+    <line class="ln" x1="360" y1="298" x2="360" y2="336" marker-end="url(#ar2)"/>
+    <line class="ln dash" x1="550" y1="338" x2="550" y2="300" marker-end="url(#ar2)"/>
+    <rect class="bx" x="40" y="40" width="130" height="56" rx="8"/><text class="t" x="105" y="59" text-anchor="middle" dominant-baseline="central">EEG</text><text class="s" x="105" y="78" text-anchor="middle" dominant-baseline="central">brain rhythms</text>
+    <rect class="bx" x="190" y="40" width="130" height="56" rx="8"/><text class="t" x="255" y="59" text-anchor="middle" dominant-baseline="central">EMG</text><text class="s" x="255" y="78" text-anchor="middle" dominant-baseline="central">muscle effort</text>
+    <rect class="bx" x="340" y="40" width="130" height="56" rx="8"/><text class="t" x="405" y="59" text-anchor="middle" dominant-baseline="central">Arm encoder</text><text class="s" x="405" y="78" text-anchor="middle" dominant-baseline="central">moving or stuck</text>
+    <rect class="bx" x="490" y="40" width="130" height="56" rx="8"/><text class="t" x="555" y="59" text-anchor="middle" dominant-baseline="central">Task context</text><text class="s" x="555" y="78" text-anchor="middle" dominant-baseline="central">cue and phase</text>
+    <rect class="bx-ai" x="40" y="140" width="130" height="56" rx="8"/><text class="t" x="105" y="159" text-anchor="middle" dominant-baseline="central">EEG decoder</text><text class="s" x="105" y="178" text-anchor="middle" dominant-baseline="central">section 5</text>
+    <rect class="bx-ai" x="190" y="140" width="130" height="56" rx="8"/><text class="t" x="255" y="159" text-anchor="middle" dominant-baseline="central">EMG decoder</text><text class="s" x="255" y="178" text-anchor="middle" dominant-baseline="central">section 6</text>
+    <rect class="bx-ai" x="40" y="240" width="580" height="56" rx="8"/><text class="t" x="330" y="259" text-anchor="middle" dominant-baseline="central">Intent estimator (HMM forward filter)</text><text class="s" x="330" y="278" text-anchor="middle" dominant-baseline="central">rest → attempt → release, every 40 ms</text>
+    <rect class="bx" x="40" y="340" width="200" height="56" rx="8"/><text class="t" x="140" y="359" text-anchor="middle" dominant-baseline="central">Intended arm</text><text class="s" x="140" y="378" text-anchor="middle" dominant-baseline="central">model of intent</text>
+    <rect class="bx-sf" x="260" y="340" width="200" height="56" rx="8"/><text class="t" x="360" y="359" text-anchor="middle" dominant-baseline="central">Safety supervisor</text><text class="s" x="360" y="378" text-anchor="middle" dominant-baseline="central">decides motor help</text>
+    <rect class="bx-ai dash" x="480" y="340" width="140" height="56" rx="8"/><text class="t" x="550" y="359" text-anchor="middle" dominant-baseline="central">LLM advisor</text><text class="s" x="550" y="378" text-anchor="middle" dominant-baseline="central">between attempts</text>
+    <rect class="bx-ai" x="40" y="424" width="14" height="14" rx="3"/><text class="s" x="62" y="431" dominant-baseline="central">learned (AI) parts</text>
+    <rect class="bx dash" x="200" y="424" width="14" height="14" rx="3"/><text class="s" x="222" y="431" dominant-baseline="central">dashed = slow layer, adjusts settings only</text>
+  </svg></div>
+  <p class="cap">The encoder and context arrows pass beside the decoder boxes and go straight into the estimator.</p>
+
+  <h3>Phases</h3>
+  <p>We start with three phases. <b>Prepare</b> and <b>hold</b> come later, once real EEG shows the rhythm drop before the EMG starts. <span class="chip agreed">Agreed</span></p>
+  <div class="tbl"><table>
+    <thead><tr><th>Phase</th><th>What we expect to see</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td>Rest</td><td>No EEG change, quiet EMG, arm still</td><td>Now</td></tr>
+      <tr><td>Attempt</td><td>EEG mu/beta power drops, EMG rises, the arm moves (or stays still if the person is weak)</td><td>Now</td></tr>
+      <tr><td>Release</td><td>EMG falls, the arm goes down</td><td>Now</td></tr>
+      <tr><td>Prepare</td><td>EEG drop starts about 1–2 s before movement, EMG still quiet</td><td>Later</td></tr>
+      <tr><td>Hold</td><td>EMG steady, arm near the target</td><td>Later</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Evidence and its traps</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Source</th><th>What it adds</th><th>Trap</th><th>What we do</th></tr></thead>
+    <tbody>
+      <tr><td>EEG</td><td>The earliest sign of an attempt</td><td>Weak and noisy. After a stroke the drop can appear on the other side or on both sides.</td><td>Train per person. Do not tie the decoder to one electrode.</td></tr>
+      <tr><td>EMG</td><td>Strong, clear sign of effort</td><td>Late. After a stroke, biceps and triceps often fire together.</td><td>Use the biceps–triceps balance, not biceps alone.</td></tr>
+      <tr><td>Arm encoder</td><td>Shows if the arm moves</td><td>The motor also moves the arm.</td><td>Subtract the motion the motor caused (from the arm model) before counting it as the person's effort.</td></tr>
+      <tr><td>Task context</td><td>An attempt is more likely just after a cue</td><td>If it counts too much, the system sees intent that is not there.</td><td>Cap its weight. Test with catch trials.</td></tr>
+    </tbody>
+  </table></div>
+  <p>When the quality check marks a signal as bad, the estimator ignores that signal for that step.</p>
+
+  <h3>Intent estimator spec</h3>
+  <ul>
+    <li><b>Model:</b> a hidden Markov model with three states, run as a causal forward filter. It never uses future samples. <span class="chip agreed">Agreed</span></li>
+    <li><b>Allowed moves:</b> rest→attempt, attempt→release, release→rest, plus staying in the same state. All other moves have probability zero.</li>
+    <li><b>Inputs per step:</b> calibrated EEG P(attempt) as a logit, log EMG effort, the person's own arm speed (motor part removed), and whether a cue is active.</li>
+    <li><b>Parameters:</b> learned from calibration data, where the labels are known. Means and spreads per state come from the labelled windows. Move probabilities come from the phase durations.</li>
+    <li><b>Output:</b> one probability per state, every 40 ms, summing to 1. It must be calibrated: we check expected calibration error (ECE) on held-out trials.</li>
+    <li><b>Upgrade path:</b> a learned sequence model replaces it only if it beats the HMM on held-out data.</li>
+  </ul>
+  <div class="code"><div class="bar"><span>twin/intent_estimator.py (sketch)</span><button type="button" data-copy="c-hmm">Copy</button></div>
+<pre id="c-hmm">import numpy as np
+
+STATES = ("rest", "attempt", "release")
+
+# Moves per 40 ms step. Zero = not allowed. Placeholders: learn them from calibration.
+A_DEFAULT = np.array([
+    [0.98, 0.02, 0.00],   # rest    -&gt; rest, attempt
+    [0.00, 0.97, 0.03],   # attempt -&gt; attempt, release
+    [0.05, 0.00, 0.95],   # release -&gt; rest, release
+])
+
+class IntentEstimator:
+    """Causal HMM forward filter. Numbers in, probabilities out. No LSL here."""
+
+    def __init__(self, A, emissions, cue_boost_max=3.0, cue_cap=0.2):
+        self.A = A
+        self.em = emissions          # name -&gt; model with .likelihood(x) giving 3 values
+        self.cue_boost_max = cue_boost_max
+        self.cue_cap = cue_cap
+        self.p = np.array([1.0, 0.0, 0.0])
+
+    def step(self, feats, quality_ok, cue_active):
+        A = self.A.copy()
+        if cue_active:                               # context prior, capped
+            A[0, 1] = min(A[0, 1] * self.cue_boost_max, self.cue_cap)
+            A[0, 0] = 1.0 - A[0, 1]
+        prior = self.p @ A
+        like = np.ones(3)
+        for name, x in feats.items():
+            if quality_ok.get(name, False):          # bad signal: ignore it this step
+                like *= self.em[name].likelihood(x)
+        post = prior * like
+        self.p = post / max(post.sum(), 1e-12)
+        return dict(zip(STATES, self.p))</pre></div>
+
+  <h3>Intended arm</h3>
+  <p>EEG cannot tell us the elbow angle. So the intended arm is built from two things: the phase from the estimator and the effort level from EMG. <span class="chip agreed">Agreed</span></p>
+  <ul>
+    <li>When P(attempt) stays at or above 0.70 for 0.15 s <span class="ph">placeholder</span>, start a minimum-jerk path from the current intended angle to the target (90° <span class="ph">placeholder</span>).</li>
+    <li>The path duration comes from EMG effort, limited to 1.0–3.0 s <span class="ph">placeholder</span>. More effort means a faster path.</li>
+    <li>When P(attempt) stays below 0.45 for 0.2 s, or release becomes the most likely state, return to rest with a minimum-jerk path.</li>
+    <li>Gap = intended angle − actual angle. The supervisor and the display use it.</li>
+  </ul>
+  <div class="code"><div class="bar"><span>twin/intended_arm.py (sketch)</span><button type="button" data-copy="c-mj">Copy</button></div>
+<pre id="c-mj">def min_jerk(theta0, theta1, t, T):
+    """Smooth path from theta0 to theta1 over T seconds."""
+    s = min(max(t / T, 0.0), 1.0)
+    return theta0 + (theta1 - theta0) * s**3 * (10 - 15 * s + 6 * s**2)</pre></div>
+</section>
+
+<!-- 5 -->
+<section id="eeg">
+  <h2><span class="n">5</span>EEG decoder</h2>
+  <p>The decoder answers one question: <b>is this person trying to move now, or resting?</b> It does not read the elbow angle. It looks for ERD: when a person prepares to move the right arm, the 8–30 Hz rhythm over the left motor area gets weaker. <span class="chip agreed">Agreed</span></p>
+  <div class="fig"><svg class="dg" viewBox="0 0 680 590" role="img"><title>EEG decoder pipeline</title><desc>Seven steps from raw EEG to a calibrated probability of attempt. The first four steps are fixed. Re-centering updates each session from a rest recording. The classifier and the calibration are trained per person.</desc>
+    <defs><marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+    <line class="ln" x1="220" y1="84" x2="220" y2="100" marker-end="url(#ar3)"/>
+    <line class="ln" x1="220" y1="156" x2="220" y2="172" marker-end="url(#ar3)"/>
+    <line class="ln" x1="220" y1="228" x2="220" y2="244" marker-end="url(#ar3)"/>
+    <line class="ln" x1="220" y1="300" x2="220" y2="316" marker-end="url(#ar3)"/>
+    <line class="ln" x1="220" y1="372" x2="220" y2="388" marker-end="url(#ar3)"/>
+    <line class="ln" x1="220" y1="444" x2="220" y2="460" marker-end="url(#ar3)"/>
+    <line class="ln" x1="220" y1="516" x2="220" y2="546" marker-end="url(#ar3)"/>
+    <text class="s" x="220" y="566" text-anchor="middle" dominant-baseline="central">to the intent estimator</text>
+    <rect class="bx" x="40" y="30" width="360" height="52" rx="8"/><text class="t" x="220" y="47" text-anchor="middle" dominant-baseline="central">Raw EEG</text><text class="s" x="220" y="65" text-anchor="middle" dominant-baseline="central">8–16 channels over the motor area, 500 Hz</text>
+    <rect class="bx" x="40" y="102" width="360" height="52" rx="8"/><text class="t" x="220" y="119" text-anchor="middle" dominant-baseline="central">Clean</text><text class="s" x="220" y="137" text-anchor="middle" dominant-baseline="central">keep 8–30 Hz, remove 50 Hz mains, flag artifacts</text>
+    <rect class="bx" x="40" y="174" width="360" height="52" rx="8"/><text class="t" x="220" y="191" text-anchor="middle" dominant-baseline="central">Window</text><text class="s" x="220" y="209" text-anchor="middle" dominant-baseline="central">last 1 s of signal, new result every 40 ms</text>
+    <rect class="bx" x="40" y="246" width="360" height="52" rx="8"/><text class="t" x="220" y="263" text-anchor="middle" dominant-baseline="central">Covariance</text><text class="s" x="220" y="281" text-anchor="middle" dominant-baseline="central">how the channels rise and fall together</text>
+    <rect class="bx-am" x="40" y="318" width="360" height="52" rx="8"/><text class="t" x="220" y="335" text-anchor="middle" dominant-baseline="central">Re-center and flatten</text><text class="s" x="220" y="353" text-anchor="middle" dominant-baseline="central">compare to today's rest, turn into a number list</text>
+    <rect class="bx-ai" x="40" y="390" width="360" height="52" rx="8"/><text class="t" x="220" y="407" text-anchor="middle" dominant-baseline="central">Classifier</text><text class="s" x="220" y="425" text-anchor="middle" dominant-baseline="central">logistic regression gives P(attempt)</text>
+    <rect class="bx-ai" x="40" y="462" width="360" height="52" rx="8"/><text class="t" x="220" y="479" text-anchor="middle" dominant-baseline="central">Calibration</text><text class="s" x="220" y="497" text-anchor="middle" dominant-baseline="central">make 0.70 really mean 70%</text>
+    <path class="ln" d="M415 32 L425 32 L425 296 L415 296"/>
+    <text class="t" x="440" y="146" dominant-baseline="central">No training</text><text class="s" x="440" y="166" dominant-baseline="central">fixed design, the same</text><text class="s" x="440" y="184" dominant-baseline="central">for every person</text>
+    <path class="ln" d="M415 320 L425 320 L425 368 L415 368"/>
+    <text class="t" x="440" y="335" dominant-baseline="central">Every session</text><text class="s" x="440" y="353" dominant-baseline="central">1–2 min rest, no labels</text>
+    <path class="ln" d="M415 392 L425 392 L425 512 L415 512"/>
+    <text class="t" x="440" y="434" dominant-baseline="central">Per person</text><text class="s" x="440" y="452" dominant-baseline="central">10–15 min calibration,</text><text class="s" x="440" y="470" dominant-baseline="central">trains in seconds</text>
+  </svg></div>
+  <p class="cap">Grey steps are fixed. The amber step updates every session. Teal steps are trained for each person.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Setting</th><th>Value</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Channels</td><td>8–16 over the motor strip (C3, Cz, C4 and neighbours)</td><td><span class="chip open">Open</span> Hardware teammate to confirm</td></tr>
+      <tr><td>Sampling rate</td><td class="num">500 Hz</td><td><span class="ph">placeholder</span> The demo used 250 Hz</td></tr>
+      <tr><td>Band-pass</td><td class="num">8–30 Hz</td><td>Causal Butterworth in SOS form. Filter state carries across blocks.</td></tr>
+      <tr><td>Notch</td><td class="num">50 Hz</td><td>Malaysian mains frequency</td></tr>
+      <tr><td>Re-reference</td><td>Common average</td><td>Also test a small Laplacian around C3 and C4</td></tr>
+      <tr><td>Window and step</td><td class="num">1.0 s, every 40 ms</td><td><span class="ph">placeholder</span> Shorter is noisier, longer adds delay</td></tr>
+      <tr><td>Covariance</td><td>OAS shrinkage</td><td>Keeps the table stable with few samples</td></tr>
+      <tr><td>Re-centering</td><td>Riemannian mean of the session's rest covariances</td><td>Fixes most of the day-to-day drift</td></tr>
+      <tr><td>Features</td><td>Tangent space at the re-centered reference</td><td>Turns each table into a list of numbers</td></tr>
+      <tr><td>Classifier</td><td>Logistic regression (L2), per person</td><td>A weighted rule whose weights are learned</td></tr>
+      <tr><td>Probability calibration</td><td>Temperature scaling on held-out trials</td><td>Report ECE before any trial with a person</td></tr>
+      <tr><td>Artifacts</td><td>Flag jaw clench, blink, railed or flat channels</td><td>The quality gate can block a window</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The covariance step in plain words</h3>
+  <p>Think of each electrode as a microphone over a choir. A diagonal cell of the table says how loud one microphone is. An off-diagonal cell says whether two microphones rise and fall together. When the person prepares to move the right arm, the C3 cell drops and C3 stops moving in step with its neighbours, while C4 stays the same. The table is a mirror image, so 8 channels give 36 unique numbers instead of 4,000 raw samples per window.</p>
+  <p>Three things to watch: artifacts that add power to many channels at once, too few samples for many channels (use shrinkage), and the fact that these tables must not be averaged or subtracted like normal numbers (hence re-centering and the tangent space).</p>
+
+  <div class="code"><div class="bar"><span>twin/eeg_decoder.py (sketch)</span><button type="button" data-copy="c-eeg">Copy</button></div>
+<pre id="c-eeg">import numpy as np
+from pyriemann.estimation import Covariances
+from pyriemann.utils.mean import mean_riemann
+from pyriemann.utils.base import invsqrtm
+from pyriemann.tangentspace import TangentSpace
+from sklearn.linear_model import LogisticRegression
+
+cov = Covariances(estimator="oas")            # shrinkage
+
+def recenter(covs, rest_covs):
+    """Make today's rest the centre, so the classifier sees change from rest."""
+    w = invsqrtm(mean_riemann(rest_covs))
+    return w @ covs @ w
+
+# windows: array (n_windows, n_channels, n_samples), already cleaned
+C_rest = cov.transform(rest_windows)          # 1-2 min rest, this session
+C_cal  = recenter(cov.transform(cal_windows), C_rest)
+
+ts  = TangentSpace(metric="riemann").fit(C_cal)
+clf = LogisticRegression(C=1.0, max_iter=1000).fit(ts.transform(C_cal), y_cal)
+# Then fit a temperature on held-out trials and report ECE.</pre></div>
+
+  <h3>Training: three kinds</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Kind</th><th>What it means</th><th>Plan</th></tr></thead>
+    <tbody>
+      <tr><td>Train per person</td><td>A small classifier learns from that person's calibration trials</td><td><span class="chip agreed">Agreed</span> Main method</td></tr>
+      <tr><td>Adapt each session</td><td>Re-center to today's rest, plus an optional top-up of 10–20 trials</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Fine-tune a large model</td><td>Start from a model trained on many people (EEGNet or an EEG foundation model), then adjust it with this person's data</td><td><span class="chip deferred">Deferred</span> Only if it beats the main method</td></tr>
+    </tbody>
+  </table></div>
+  <p>A model trained on healthy volunteers will not carry over to a stroke patient. Healthy data builds and tests the system; each patient gets their own calibration.</p>
+  <div class="call"><h4>What to expect</h4><p>Healthy users often reach about 70–85% for rest versus attempt. About 1 in 9 people never get reliable control. Accuracy can fall from 68.8% to 53.7% between sessions and recover to 78.9% with adaptation (figures from the project evidence base). Results after a stroke are lower and vary more. This is why EMG and the estimator are part of the design.</p></div>
+</section>
+
+<!-- 6 -->
+<section id="emg">
+  <h2><span class="n">6</span>EMG decoder <span class="chip open">Open</span></h2>
+  <p>We have not done the EMG deep dive yet. Build this baseline so the pipeline runs, and expect changes after the deep dive.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Step</th><th>Baseline</th></tr></thead>
+    <tbody>
+      <tr><td>Channels</td><td>Biceps and triceps, one bipolar pair each</td></tr>
+      <tr><td>Filter</td><td>Band-pass 20–450 Hz <span class="ph">placeholder</span> (needs at least 1000 Hz sampling), 50 Hz notch</td></tr>
+      <tr><td>Envelope</td><td>Rectify, then low-pass at 6 Hz <span class="ph">placeholder</span></td></tr>
+      <tr><td>Normalize</td><td>To the session rest level. Maximum voluntary contraction only for healthy volunteers, because it is unreliable after a stroke.</td></tr>
+      <tr><td>Onset</td><td>Envelope above rest mean + 3 SD for at least 50 ms <span class="ph">placeholder</span></td></tr>
+      <tr><td>Effort</td><td>Normalized biceps envelope</td></tr>
+      <tr><td>Co-activation index</td><td>Triceps ÷ (biceps + triceps)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 7 -->
+<section id="compare">
+  <h2><span class="n">7</span>Rules vs AI study</h2>
+  <p>Movement can be detected without AI. AI mainly adds precision. We turn this into a measured result: run a rules-only detector and the AI detector on the same data and compare them. <span class="chip agreed">Agreed</span></p>
+  <div class="grid2">
+    <div class="card"><h4>Rules-only detector</h4><p>EEG: 8–30 Hz power over C3 drops at least 30% below rest for 200 ms <span class="ph">placeholder</span>. EMG: the onset rule in section 6. Encoder: the person's own movement. Report each rule alone and combined. It still needs per-person calibration of the rest level and threshold.</p></div>
+    <div class="card"><h4>AI detector</h4><p>The EEG decoder (section 5) and EMG features feeding the intent estimator (section 4).</p></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Metric</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Share of attempts detected</td><td>Misses mean no help when the person tries</td></tr>
+      <tr><td>False alarms per minute (rest and catch trials)</td><td>Plain accuracy hides these</td></tr>
+      <tr><td>Detection delay, relative to EMG onset and movement onset</td><td>EEG's main value is an earlier warning</td></tr>
+      <tr><td>ECE of the probabilities</td><td>The 0.70 threshold only means something if the probabilities are calibrated</td></tr>
+    </tbody>
+  </table></div>
+  <p>Use a chronological split (train on earlier trials, test on later ones). Never shuffle, because overlapping windows would leak answers into the test. Report results per person.</p>
+  <div class="call ai"><h4>Rules check the AI, not the other way round</h4><p>The rules-only detector can also be a plausibility check inside the supervisor. If the AI says "attempt, 0.9" but EMG is silent and the EEG rule sees no drop, the supervisor does not add help and logs the disagreement. Whether EMG agreement is required stays <span class="chip open">Open</span>: a stroke patient's EMG may be weak exactly when they need help most.</p></div>
+</section>
+
+<!-- 8 -->
+<section id="supervisor">
+  <h2><span class="n">8</span>Safety supervisor</h2>
+  <p>A state machine that runs every 4 ms. It uses P(attempt) from the intent estimator in place of the single confidence value in the demo. The ten rules below are proposed. <span class="chip open">Open</span></p>
+  <div class="tbl"><table>
+    <thead><tr><th>Rule</th><th>Check</th><th>On failure</th></tr></thead>
+    <tbody>
+      <tr><td class="num">R1</td><td>Every stream sends fresh data (timeout 0.3 s)</td><td>Fault, then safe state</td></tr>
+      <tr><td class="num">R2</td><td>Signal quality is good</td><td>No help</td></tr>
+      <tr><td class="num">R3</td><td>P(attempt) is 0.70 or more</td><td>No help</td></tr>
+      <tr><td class="num">R4</td><td>The arm stays inside the safe range</td><td>Fault, then safe state</td></tr>
+      <tr><td class="num">R5</td><td>Torque, speed and torque change stay under the caps</td><td>Clip; fault if the cap is hit repeatedly</td></tr>
+      <tr><td class="num">R6</td><td>During help, signals can only reduce force</td><td>Ignore any increase</td></tr>
+      <tr><td class="num">R7</td><td>Each period of help lasts 6 s or less</td><td>End help, ramp down</td></tr>
+      <tr><td class="num">R8</td><td>The arm moves the way the twin predicts</td><td>Fault (jam or feedback loop)</td></tr>
+      <tr><td class="num">R9</td><td>A fault stays until a person clears it</td><td>Stay in fault</td></tr>
+      <tr><td class="num">R10</td><td>The stop button always works</td><td>Stop at once, in hardware and software</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Placeholder limits</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Limit</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Target angle</td><td class="num">90°</td></tr>
+      <tr><td>Safe range (set by a therapist)</td><td class="num">0–120°</td></tr>
+      <tr><td>Help fades out</td><td class="num">100–110°</td></tr>
+      <tr><td>Mechanical hard stops</td><td class="num">0° and 135°</td></tr>
+      <tr><td>Motor torque cap</td><td class="num">6 N·m</td></tr>
+      <tr><td>Torque change cap</td><td class="num">4 N·m/s</td></tr>
+      <tr><td>Speed cap</td><td class="num">120°/s</td></tr>
+      <tr><td>P(attempt) to start help</td><td class="num">0.70</td></tr>
+      <tr><td>Lag before help</td><td class="num">8° for 0.5 s</td></tr>
+      <tr><td>Longest help period</td><td class="num">6 s</td></tr>
+      <tr><td>Stale stream timeout</td><td class="num">0.3 s</td></tr>
+      <tr><td>Support step (force rule C)</td><td class="num">+10% / −5%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Safe state at a fault: hold, lower slowly at 15°/s, or go limp. <span class="chip open">Open</span> Force rule: A virtual spring, B weight support, or C weight support adjusted between attempts. <span class="chip open">Open</span></p>
+
+  <h3>Contract with the microcontroller</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Direction</th><th>Message</th><th>Contents</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td>Laptop → MCU</td><td>Command</td><td>Torque request, sequence number, checksum</td><td>Every 4 ms (250 Hz)</td></tr>
+      <tr><td>Laptop → MCU</td><td>Heartbeat</td><td>Inside each command</td><td>No valid command for 50 ms: the MCU goes to its safe state by itself</td></tr>
+      <tr><td>MCU → laptop</td><td>State</td><td>Angle, speed, measured torque, fault flags, sequence number</td><td>Every 2 ms (500 Hz)</td></tr>
+      <tr><td>MCU only</td><td>Hard limits</td><td>Torque cap, speed cap, range limits, emergency stop input</td><td>The laptop cannot change them while running</td></tr>
+    </tbody>
+  </table></div>
+  <p>All numbers are placeholders until the hardware teammate agrees them.</p>
+</section>
+
+<!-- 9 -->
+<section id="calibration">
+  <h2><span class="n">9</span>Calibration</h2>
+  <p>Calibration trains the per-person parts. Even the rules-only detector needs it, because rest levels and thresholds differ between people.</p>
+  <div class="fig"><svg class="dg" viewBox="0 0 680 290" role="img"><title>One calibration trial</title><desc>A trial has rest, ready, attempt and relax phases. Rest and attempt windows become training labels; ready and relax windows are ignored. An EMG check confirms each attempt. The trial repeats about 40 times with catch trials mixed in.</desc>
+    <text class="s" x="40" y="24" dominant-baseline="central">What the person is told</text>
+    <rect class="bx" x="40" y="40" width="180" height="56" rx="8"/><text class="t" x="130" y="59" text-anchor="middle" dominant-baseline="central">Rest</text><text class="s" x="130" y="78" text-anchor="middle" dominant-baseline="central">3–5 s, random length</text>
+    <rect class="bx" x="226" y="40" width="110" height="56" rx="8"/><text class="t" x="281" y="59" text-anchor="middle" dominant-baseline="central">Ready</text><text class="s" x="281" y="78" text-anchor="middle" dominant-baseline="central">1 s, get set</text>
+    <rect class="bx-ai" x="342" y="40" width="180" height="56" rx="8"/><text class="t" x="432" y="59" text-anchor="middle" dominant-baseline="central">Attempt</text><text class="s" x="432" y="78" text-anchor="middle" dominant-baseline="central">4 s, try to bend</text>
+    <rect class="bx" x="528" y="40" width="112" height="56" rx="8"/><text class="t" x="584" y="59" text-anchor="middle" dominant-baseline="central">Relax</text><text class="s" x="584" y="78" text-anchor="middle" dominant-baseline="central">2 s, let go</text>
+    <text class="s" x="40" y="118" dominant-baseline="central">Label used for training</text>
+    <rect class="bx" x="40" y="134" width="180" height="44" rx="8"/><text class="t" x="130" y="156" text-anchor="middle" dominant-baseline="central">Rest windows</text>
+    <rect class="bx dash" x="226" y="134" width="110" height="44" rx="8"/><text class="s" x="281" y="156" text-anchor="middle" dominant-baseline="central">ignored</text>
+    <rect class="bx-ai" x="342" y="134" width="180" height="44" rx="8"/><text class="t" x="432" y="156" text-anchor="middle" dominant-baseline="central">Attempt windows</text>
+    <rect class="bx dash" x="528" y="134" width="112" height="44" rx="8"/><text class="s" x="584" y="156" text-anchor="middle" dominant-baseline="central">ignored</text>
+    <text class="s" x="40" y="200" dominant-baseline="central">Check before the trial is kept</text>
+    <rect class="bx" x="342" y="216" width="180" height="56" rx="8"/><text class="t" x="432" y="235" text-anchor="middle" dominant-baseline="central">EMG check</text><text class="s" x="432" y="254" text-anchor="middle" dominant-baseline="central">confirms a real try</text>
+    <text class="s" x="40" y="244" dominant-baseline="central">↻ repeat about 40 times, with catch trials</text>
+  </svg></div>
+  <p class="cap">All durations are placeholders.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Item</th><th>Plan</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>What the volunteer does</td><td>Real elbow movement first. A block of trying to bend against a held arm later, once the hardware can hold the arm safely. No imagined movement.</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Labels</td><td>Cue timing marks the rest and attempt windows. EMG confirms each attempt; trials without a confirmed attempt are dropped and logged.</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Motor</td><td>Off for the whole calibration</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Length</td><td>About 40 trials, roughly 10–12 minutes with breaks <span class="ph">placeholder</span></td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Catch trials</td><td>About 1 in 5: ready cue, then "stay still". Measures false alarms.</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Random rest length</td><td>The person cannot predict the cue, so the decoder learns intent, not timing</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Each new session</td><td>1–2 min rest recording to re-center, plus an optional top-up of 10–20 trials</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Validation</td><td>Chronological split, never shuffled. Metrics from section 7.</td><td><span class="chip agreed">Agreed</span></td></tr>
+      <tr><td>Simulation</td><td>The simulator generates full calibration sessions with known truth, including catch trials, missed attempts and artifacts</td><td><span class="chip agreed">Agreed</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 10 -->
+<section id="advisor">
+  <h2><span class="n">10</span>LLM advisor</h2>
+  <p>A cloud LLM, used between attempts only. It reads a short summary of recent attempts and proposes one typed change. It never reads raw signals, never sets motor force, and never changes limits or rules. <span class="chip agreed">Agreed</span></p>
+
+  <h3>Plug-in interface</h3>
+  <p>The model is a setting. The cloud is used now with healthy volunteers. If a hospital later does not allow cloud processing, a local model replaces it without changing any other part.</p>
+  <div class="code"><div class="bar"><span>twin/advisor/interface.py (sketch)</span><button type="button" data-copy="c-adv">Copy</button></div>
+<pre id="c-adv">from typing import Optional, Protocol
+
+class Advisor(Protocol):
+    name: str
+    model_id: str            # pinned and logged with every call
+
+    def propose(self, summary: "SessionSummary", timeout_s: float) -&gt; Optional["Proposal"]:
+        """Return one schema-valid Proposal, or None on timeout, error or bad output."""
+
+# Implementations:
+#   RulesAdvisor  - local if-then checks, no AI (always available fallback)
+#   CloudAdvisor  - cloud LLM with structured output (provider: open decision)
+#   LocalAdvisor  - later, an open model on the laptop or Jetson</pre></div>
+
+  <h3>What it reads: an attempt summary</h3>
+  <div class="code"><div class="bar"><span>Example summary (no raw arrays, no names)</span><button type="button" data-copy="c-sum">Copy</button></div>
+<pre id="c-sum">{
+  "participant": "P01",
+  "session": 3,
+  "attempt": 7,
+  "phase_durations_s": {"rest": 4.1, "attempt": 3.6, "release": 1.9},
+  "p_attempt_peak": 0.62,
+  "eeg_quality": {"C3": "low", "Cz": "ok", "C4": "ok"},
+  "emg_onset_s": 0.31,
+  "cocontraction_index": 0.38,
+  "peak_angle_deg": 64,
+  "target_deg": 90,
+  "gap_peak_deg": 22,
+  "assist_used": true,
+  "rule_hits": ["R2"],
+  "last_5": {"p_attempt_peak_mean": 0.66, "low_quality_count": 4}
+}</pre></div>
+
+  <h3>What it may propose</h3>
+  <div class="code"><div class="bar"><span>Proposal schema (JSON Schema)</span><button type="button" data-copy="c-prop">Copy</button></div>
+<pre id="c-prop">{
+  "type": "object",
+  "required": ["action", "reason", "for_attempt"],
+  "additionalProperties": false,
+  "properties": {
+    "action": {"enum": [
+      "no_change", "check_electrode", "rest_recalibration",
+      "top_up_calibration", "adjust_start_threshold",
+      "suggest_break", "flag_for_review"]},
+    "electrode": {"enum": ["C3", "Cz", "C4", "biceps", "triceps"]},
+    "threshold_delta": {"type": "number", "minimum": -0.05, "maximum": 0.05},
+    "reason": {"type": "string", "maxLength": 300},
+    "for_attempt": {"type": "integer"}
+  }
+}</pre></div>
+  <p>The supervisor also checks that the resulting start threshold stays within 0.60–0.85 <span class="ph">placeholder</span>. There is no action for torque, limits or rules, so the LLM cannot propose them.</p>
+
+  <h3>Checks before a proposal is used</h3>
+  <ol class="plain">
+    <li>The output matches the schema. Anything else is rejected and logged.</li>
+    <li>Every value is inside its bounds.</li>
+    <li>It is fresh: it targets the next attempt and is under 30 s old <span class="ph">placeholder</span>.</li>
+    <li>The operator approves it. Default: every proposal needs approval. <span class="chip open">Open</span> The alternative is automatic approval inside a fixed range.</li>
+    <li>One-click undo returns to the last approved settings.</li>
+  </ol>
+
+  <h3>If the LLM drops</h3>
+  <p>Nothing unsafe happens, because the LLM is not in the control loop.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>What goes wrong</th><th>What the system does</th></tr></thead>
+    <tbody>
+      <tr><td>No answer within 10 s</td><td>Keeps current settings, shows "Advisor offline", session continues</td></tr>
+      <tr><td>Network down for many attempts</td><td>Same. <code>RulesAdvisor</code> still flags basic problems such as a bad electrode.</td></tr>
+      <tr><td>Answer cut off halfway</td><td>Discards it. Never uses part of an answer.</td></tr>
+      <tr><td>Wrong format or values out of bounds</td><td>Rejects, logs, treats as no advice</td></tr>
+      <tr><td>Answer arrives after the next attempt started</td><td>Rejects it as stale</td></tr>
+      <tr><td>Provider changes or retires the model version</td><td>Stops using the advisor until the operator approves the new version</td></tr>
+      <tr><td>Advice looks reasonable but is wrong</td><td>Bounds, operator approval and one-click undo</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call"><h4>Privacy</h4><p>EEG and EMG count as health-related personal data under Malaysia's PDPA 2010. Send only summaries with coded IDs. Use the provider's API, not a chat app, and check its data-retention terms. The university ethics application should state where data goes. Provider choice is <span class="chip open">Open</span>; any API with structured (JSON schema) output works.</p></div>
+</section>
+
+<!-- 11 -->
+<section id="display">
+  <h2><span class="n">11</span>Display</h2>
+  <p><b>A desktop screen now. Mixed reality (passthrough headset) later.</b> No full VR, because the person must be able to see their real arm while a motor moves it. <span class="chip agreed">Agreed</span></p>
+  <h3>What the screen shows</h3>
+  <ul>
+    <li>The actual arm, and the intended arm as a ghost over it</li>
+    <li>The gap in degrees, live and as a trace</li>
+    <li>Phase probabilities (rest, attempt, release)</li>
+    <li>Signal quality per channel</li>
+    <li>Supervisor state, rule hits and motor torque</li>
+    <li>Advisor status (online, offline, proposal waiting for approval) and the operator panel</li>
+    <li>Stop button state</li>
+  </ul>
+  <p>The display only reads streams. Closing it never affects control.</p>
+  <h3>Renderer <span class="chip open">Open</span></h3>
+  <p>The choice of mixed reality later narrows the options. Claude Code must ask before building the 3D view in M3.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Option</th><th>Desktop now</th><th>Mixed reality later</th></tr></thead>
+    <tbody>
+      <tr><td>Python (PySide6 + pyqtgraph or PyVista)</td><td>Simple, same language as the rest</td><td>No XR path, needs a rewrite</td></tr>
+      <tr><td>Web (Three.js) with a small LSL-to-WebSocket bridge</td><td>Reuses the demo scene</td><td>WebXR path in a headset browser (to verify)</td></tr>
+      <tr><td>Unity with an LSL plug-in</td><td>Heavier to learn</td><td>Strong XR support</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call amber"><h4>Mixed reality concerns to test later</h4><p>The headset strap presses on the EEG electrodes we use (C3, C4), which adds noise and pressure. Also headset weight, lining up the ghost with the real arm, motion sickness, and visual-field loss or one-sided neglect after a stroke.</p></div>
+</section>
+
+<!-- 12 -->
+<section id="repo">
+  <h2><span class="n">12</span>Repository layout</h2>
+  <div class="code"><div class="bar"><span>elbow-twin/</span><button type="button" data-copy="c-tree">Copy</button></div>
+<pre id="c-tree">elbow-twin/
+├── README.md
+├── requirements.txt
+├── .gitignore                  recordings/, .venv/, logs with participant data
+├── config/
+│   └── session.yaml            every placeholder number
+├── docs/
+│   └── elbow-intent-build-brief.html
+├── twin/                       core logic: no LSL, no window, no hardware
+│   ├── arm_model.py            elbow physics
+│   ├── patient.py              virtual patient: intent and muscles
+│   ├── signals.py              simulated EEG and EMG
+│   ├── world.py                patient + signals + arm, for simulation and tests
+│   ├── protocol.py             calibration trial timing, cues, catch trials
+│   ├── quality.py              signal checks
+│   ├── filters.py              causal SOS filters
+│   ├── eeg_decoder.py          covariance, re-center, tangent space, classifier
+│   ├── emg_decoder.py          envelope, onset, effort, co-activation
+│   ├── rules_detector.py       no-AI baseline
+│   ├── intent_estimator.py     HMM forward filter
+│   ├── intended_arm.py         minimum-jerk path
+│   ├── supervisor.py           state machine, rules R1–R10
+│   ├── force_rules.py          A, B, C (open decision)
+│   ├── evaluation.py           detection rate, false alarms/min, delay, ECE
+│   └── advisor/
+│       ├── interface.py        Advisor protocol
+│       ├── schema.py           summary and proposal types, bounds
+│       ├── rules_advisor.py    local fallback, no AI
+│       └── cloud_advisor.py    cloud LLM (provider open)
+├── apps/                       thin adapters around the core
+│   ├── sim_world.py            runs world.py, publishes EEG, EMG, ArmState
+│   ├── run_decoder.py          EEG + EMG + ArmState in, Intent out
+│   ├── run_supervisor.py       Intent + ArmState + Advice in, MotorCommand out
+│   ├── run_advisor.py          Events in, Advice out
+│   ├── run_calibration.py      cue screen, Events out
+│   ├── twin_app.py             read-only display and operator panel
+│   ├── replay.py               plays a recording as live streams
+│   └── arm_bridge.py           later: serial link to the arm
+├── tests/
+│   ├── unit/
+│   └── scenarios/              one file per fault
+└── recordings/                 .xdf files, kept out of Git</pre></div>
+</section>
+
+<!-- 13 -->
+<section id="config">
+  <h2><span class="n">13</span>Config file</h2>
+  <p>Starting content for <code>config/session.yaml</code>. Every value is a placeholder.</p>
+  <div class="code"><div class="bar"><span>config/session.yaml</span><button type="button" data-copy="c-yaml">Copy</button></div>
+<pre id="c-yaml"># All numbers are placeholders. A change needs the operator's confirmation and goes in the log.
+participant_id: P01              # coded ID, never a name
+
+limits:
+  target_deg: 90
+  safe_range_deg: [0, 120]       # set by a therapist
+  assist_fade_deg: [100, 110]
+  hard_stops_deg: [0, 135]       # mechanical, enforced in hardware
+  torque_cap_nm: 6.0
+  torque_rate_cap_nm_s: 4.0
+  speed_cap_deg_s: 120
+  max_help_s: 6.0
+  stale_stream_s: 0.3
+  lag_before_help: {deg: 8, s: 0.5}
+  safe_state: hold               # open decision
+  force_rule: none               # open decision: A, B or C
+
+eeg:
+  fs_hz: 500
+  channels: [FC3, C3, CP3, Cz, CPz, FC4, C4, CP4]   # confirm with hardware
+  bandpass_hz: [8, 30]
+  notch_hz: 50
+  reference: car
+  window_s: 1.0
+  step_s: 0.04
+  covariance: oas
+
+emg:
+  fs_hz: 1000
+  bandpass_hz: [20, 450]
+  envelope_lowpass_hz: 6
+  onset: {k_sd: 3.0, min_ms: 50}
+
+intent:
+  states: [rest, attempt, release]
+  step_s: 0.04
+  attempt_on: {p: 0.70, hold_s: 0.15}
+  attempt_off: {p: 0.45, hold_s: 0.20}
+  cue_boost_max: 3.0
+  cue_cap: 0.2
+
+intended_arm:
+  duration_s: [1.0, 3.0]         # set from EMG effort
+
+rules_detector:
+  eeg_drop_pct: 30
+  eeg_min_ms: 200
+
+calibration:
+  rest_recording_s: 90
+  trials: 40
+  rest_s: [3, 5]
+  ready_s: 1.0
+  attempt_s: 4.0
+  relax_s: 2.0
+  catch_trial_share: 0.2
+  top_up_trials: [10, 20]
+  motor: off
+
+advisor:
+  enabled: true
+  provider: none                 # open decision
+  model_id: ""                   # pinned and logged
+  timeout_s: 10
+  max_age_s: 30
+  approval: every_proposal       # open decision
+  start_threshold_bounds: [0.60, 0.85]
+  max_threshold_step: 0.05
+  send: summaries_only</pre></div>
+</section>
+
+<!-- 14 -->
+<section id="milestones">
+  <h2><span class="n">14</span>Milestones</h2>
+  <p>Do not start a milestone until the one before it passes its test. M0 to M9 need no hardware.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Milestone</th><th>Build</th><th>Done when</th></tr></thead>
+    <tbody>
+      <tr><td class="num">M0</td><td>Set up the project</td><td>Folders, <code>requirements.txt</code>, <code>.gitignore</code>, config loader, one empty test</td><td><code>pytest</code> passes; <code>pylsl</code>, <code>mne</code>, <code>pyriemann</code>, <code>sklearn</code> import</td></tr>
+      <tr><td class="num">M1</td><td>Arm model</td><td><code>arm_model.py</code>: I·θ̈ = τp + τm − m·g·l·sinθ − b·θ̇, Winter body ratios</td><td>A forearm let go at 90° falls and settles at 0°. A torque of m·g·l holds it level.</td></tr>
+      <tr><td class="num">M2</td><td>Virtual patient, signals and protocol</td><td><code>patient.py</code>, <code>signals.py</code>, <code>world.py</code>, <code>protocol.py</code>, <code>sim_world.py</code></td><td>LabRecorder sees EEG, EMG and ArmState. Mu power drops at each attempt. A simulated calibration session comes with labels, catch trials and missed attempts.</td></tr>
+      <tr><td class="num">M3</td><td>Twin window, first version</td><td><code>twin_app.py</code>. Ask about the renderer first.</td><td>Follows ArmState smoothly, shows both arms and the gap. Closing it does not stop the other programs.</td></tr>
+      <tr><td class="num">M4</td><td>Decoders and rules-only baseline</td><td><code>filters.py</code>, <code>quality.py</code>, <code>eeg_decoder.py</code>, <code>emg_decoder.py</code>, <code>rules_detector.py</code>, <code>evaluation.py</code></td><td>The evaluation harness reports detection rate, false alarms per minute, delay and ECE for both detectors on simulated data (code check only).</td></tr>
+      <tr><td class="num">M5</td><td>Intent estimator and intended arm</td><td><code>intent_estimator.py</code>, <code>intended_arm.py</code>, <code>run_decoder.py</code></td><td>Unit tests: only allowed moves happen, a bad signal is ignored, probabilities sum to 1, no future samples used. Intent publishes at 25 Hz.</td></tr>
+      <tr><td class="num">M6</td><td>Safety supervisor</td><td><code>supervisor.py</code>, <code>force_rules.py</code>, <code>run_supervisor.py</code></td><td>Each of R1–R10 has at least one unit test. The simulated stroke patient gets help.</td></tr>
+      <tr><td class="num">M7</td><td>Scenario tests</td><td><code>tests/scenarios/</code></td><td>One command runs: shoulder jolt, electrode off, stream freeze, jam, feedback loop, stop button. Each ends in the expected safe outcome.</td></tr>
+      <tr><td class="num">M8</td><td>LLM advisor</td><td><code>advisor/</code>, <code>run_advisor.py</code>, operator panel in the twin</td><td>With a fake advisor, every failure in section 10 is tested. A test proves no raw arrays or names are sent. Every call is logged.</td></tr>
+      <tr><td class="num">M9</td><td>Replay real data</td><td><code>replay.py</code></td><td>The decoder runs on a public EEG dataset with no code change. Dataset choice is open.</td></tr>
+      <tr><td class="num">M10</td><td>Swap in the hardware</td><td><code>arm_bridge.py</code>, amplifier LSL app or BrainFlow</td><td>Needs the hardware and a signed-off hazard analysis. Motor disabled first. Not for Claude Code until Gilbert says so.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Install</h3>
+  <div class="code"><div class="bar"><span>Terminal</span><button type="button" data-copy="c-pip">Copy</button></div>
+<pre id="c-pip">python -m venv .venv
+# Windows: .venv\Scripts\activate    macOS or Linux: source .venv/bin/activate
+pip install numpy scipy matplotlib mne pyriemann scikit-learn moabb pylsl pyxdf pyyaml pytest
+# Later, depending on decisions: PySide6 pyqtgraph PyOpenGL (Python renderer), pyserial (hardware)</pre></div>
+  <p>LabRecorder is a separate app from its GitHub releases page. If <code>pylsl</code> cannot find the LSL library, install <code>liblsl</code> from conda-forge.</p>
+</section>
+
+<!-- 15 -->
+<section id="decisions">
+  <h2><span class="n">15</span>Decision log</h2>
+  <p>This log replaces the open-decisions table on the earlier demo page.</p>
+  <div class="filters" role="group" aria-label="Filter decisions">
+    <button type="button" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" data-filter="agreed" aria-pressed="false">Agreed</button>
+    <button type="button" data-filter="open" aria-pressed="false">Open</button>
+    <button type="button" data-filter="deferred" aria-pressed="false">Deferred</button>
+  </div>
+  <div class="tbl"><table id="dlog">
+    <thead><tr><th>ID</th><th>Decision</th><th>Status</th><th>Choice or default</th></tr></thead>
+    <tbody>
+      <tr data-s="agreed"><td class="num">D1</td><td>Data transport</td><td><span class="chip agreed">Agreed</span></td><td>LSL with one clock; LabRecorder saves .xdf</td></tr>
+      <tr data-s="agreed"><td class="num">D2</td><td>Code pattern</td><td><span class="chip agreed">Agreed</span></td><td>Plain classes with <code>step()</code>, thin adapters, pytest scenarios</td></tr>
+      <tr data-s="agreed"><td class="num">D3</td><td>Test signals</td><td><span class="chip agreed">Agreed</span></td><td>Synthetic now, public replay next, own recordings later</td></tr>
+      <tr data-s="agreed"><td class="num">D4</td><td>Display</td><td><span class="chip agreed">Agreed</span></td><td>Desktop now; mixed reality later; no full VR</td></tr>
+      <tr data-s="open"><td class="num">D5</td><td>Renderer</td><td><span class="chip open">Open</span></td><td>Python, Web (Three.js) or Unity. Ask at M3.</td></tr>
+      <tr data-s="open"><td class="num">D6</td><td>Twin physics</td><td><span class="chip open">Open</span></td><td>Default: hand-written 1-DOF equation. Option: MuJoCo.</td></tr>
+      <tr data-s="agreed"><td class="num">D7</td><td>Intent phases</td><td><span class="chip agreed">Agreed</span></td><td>Rest, attempt, release now; prepare and hold later</td></tr>
+      <tr data-s="agreed"><td class="num">D8</td><td>Intent estimator</td><td><span class="chip agreed">Agreed</span></td><td>HMM forward filter; learned sequence model only if it beats it</td></tr>
+      <tr data-s="agreed"><td class="num">D9</td><td>Source of the intended arm</td><td><span class="chip agreed">Agreed</span></td><td>Phase from the estimator + effort from EMG, minimum-jerk path to the target</td></tr>
+      <tr data-s="agreed"><td class="num">D10</td><td>EEG decoder</td><td><span class="chip agreed">Agreed</span></td><td>OAS covariance, re-center to session rest, tangent space, logistic regression, temperature scaling; per person</td></tr>
+      <tr data-s="deferred"><td class="num">D11</td><td>Fine-tune a large EEG model</td><td><span class="chip deferred">Deferred</span></td><td>Only if it beats D10 on held-out data</td></tr>
+      <tr data-s="open"><td class="num">D12</td><td>EMG decoder details</td><td><span class="chip open">Open</span></td><td>Baseline in section 6 until the deep dive</td></tr>
+      <tr data-s="agreed"><td class="num">D13</td><td>Rules vs AI study</td><td><span class="chip agreed">Agreed</span></td><td>Same data, metrics in section 7</td></tr>
+      <tr data-s="agreed"><td class="num">D14</td><td>Calibration task</td><td><span class="chip agreed">Agreed</span></td><td>Real movement first; held-arm block later; no imagery</td></tr>
+      <tr data-s="agreed"><td class="num">D15</td><td>Calibration labels</td><td><span class="chip agreed">Agreed</span></td><td>Cue timing for windows, EMG confirms or the trial is dropped</td></tr>
+      <tr data-s="agreed"><td class="num">D16</td><td>Motor during calibration</td><td><span class="chip agreed">Agreed</span></td><td>Off</td></tr>
+      <tr data-s="agreed"><td class="num">D17</td><td>LLM type</td><td><span class="chip agreed">Agreed</span></td><td>Cloud LLM behind a plug-in interface; local model possible later</td></tr>
+      <tr data-s="agreed"><td class="num">D18</td><td>Data sent to the LLM</td><td><span class="chip agreed">Agreed</span></td><td>Summaries only, coded IDs</td></tr>
+      <tr data-s="open"><td class="num">D19</td><td>LLM provider</td><td><span class="chip open">Open</span></td><td>Any API with JSON-schema output. Pick at M8.</td></tr>
+      <tr data-s="open"><td class="num">D20</td><td>LLM proposal approval</td><td><span class="chip open">Open</span></td><td>Default: every proposal needs approval. Option: automatic inside a fixed range.</td></tr>
+      <tr data-s="agreed"><td class="num">D21</td><td>AI authority</td><td><span class="chip agreed">Agreed</span></td><td>Recommend only (level 2). Level 3 (adjust inside limits) depends on D20.</td></tr>
+      <tr data-s="open"><td class="num">D22</td><td>Supervisor plausibility check</td><td><span class="chip open">Open</span></td><td>Whether EMG agreement is required (weak-EMG trap)</td></tr>
+      <tr data-s="open"><td class="num">D23</td><td>Supervisor rules</td><td><span class="chip open">Open</span></td><td>Accept R1–R10 or change some</td></tr>
+      <tr data-s="open"><td class="num">D24</td><td>Force rule</td><td><span class="chip open">Open</span></td><td>A virtual spring, B weight support, C adjusted between attempts</td></tr>
+      <tr data-s="open"><td class="num">D25</td><td>Safe state at a fault</td><td><span class="chip open">Open</span></td><td>Hold, lower slowly, or go limp</td></tr>
+      <tr data-s="deferred"><td class="num">D26</td><td>Jetson role</td><td><span class="chip deferred">Deferred</span></td><td>The laptop runs the decoders; Jetson optional</td></tr>
+      <tr data-s="agreed"><td class="num">D27</td><td>Project scope</td><td><span class="chip agreed">Agreed</span></td><td>Healthy proof of concept; stroke patients later with a clinical partner</td></tr>
+      <tr data-s="open"><td class="num">D28</td><td>Python version and project folder</td><td><span class="chip open">Open</span></td><td>3.11 or 3.12</td></tr>
+      <tr data-s="open"><td class="num">D29</td><td>Arm posture during sessions</td><td><span class="chip open">Open</span></td><td>Affects the gravity term in the arm model</td></tr>
+      <tr data-s="open"><td class="num">D30</td><td>Public dataset for replay</td><td><span class="chip open">Open</span></td><td>BCI IV-2a was the earlier example; it has no EMG and no elbow task</td></tr>
+      <tr data-s="open"><td class="num">D31</td><td>Sensor hardware</td><td><span class="chip open">Open</span></td><td>Channel count, sampling rates, amplifier (hardware teammate)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 16 -->
+<section id="hardware">
+  <h2><span class="n">16</span>Questions for the hardware teammate</h2>
+  <ul>
+    <li>EEG: how many channels, which positions, which amplifier, what sampling rate, and does it publish LSL?</li>
+    <li>EMG: can we sample at 1000 Hz or more, and where do the biceps and triceps electrodes go?</li>
+    <li>Encoder: resolution and update rate. Can the motor current or torque be measured?</li>
+    <li>Can the arm be held still safely for the held-arm calibration block? Mechanical lock or motor hold?</li>
+    <li>Microcontroller contract: are 250 Hz commands, 500 Hz state and a 50 ms heartbeat realistic?</li>
+    <li>For mixed reality later: will a headset strap fit over the EEG cap without pressing on C3 and C4?</li>
+  </ul>
+</section>
+
+<!-- 17 -->
+<section id="evidence">
+  <h2><span class="n">17</span>Evidence and standards</h2>
+  <p>Full citations are in the project documents <code>bci-foundations-and-signal-integrity</code> and <code>research-proposal</code>.</p>
+  <ul>
+    <li><b>Hybrid EEG–EMG detection</b> beats EEG alone (91.3% vs 81.8%, Frontiers in Neurorobotics, 2026).</li>
+    <li><b>Motor attempt beats motor imagery</b> after stroke (79% vs 66.5%, Chen 2021).</li>
+    <li><b>Continuous kinematics from EEG</b> can be explained by confounds (Antelis 2013). This is why the intended arm is a model of intent.</li>
+    <li><b>Telling joints of the same arm apart</b> is much harder than detecting move versus rest (Ofner 2017).</li>
+    <li><b>Abnormal co-activation</b> of elbow muscles after stroke (Dewald and colleagues).</li>
+    <li><b>Assist-as-needed and slacking</b> (Marchal-Crespo and Reinkensmeyer 2009; Wolbrecht 2008).</li>
+    <li><b>Digital twin levels</b> (Kritzinger 2018) and human digital twins in rehabilitation (Lauer-Schmaltz 2024).</li>
+  </ul>
+  <p><b>Standards to follow:</b> ISO 14971 (risk management), IEC 60601-1 and IEC 80601-2-78 (medical electrical equipment, rehabilitation robots), IEC 62304 (medical device software). <b>Data:</b> Malaysia PDPA 2010.</p>
+</section>
+
+<!-- 18 -->
+<section id="terms">
+  <h2><span class="n">18</span>Terms</h2>
+  <dl class="terms">
+    <dt>ERD</dt><dd>Event-related desynchronization. The 8–30 Hz rhythm over the motor area gets weaker when a person moves or tries to move.</dd>
+    <dt>Covariance table</dt><dd>A table of how strong each EEG channel is and how channels rise and fall together.</dd>
+    <dt>Re-centering</dt><dd>Measuring EEG change from today's rest, so day-to-day shifts cancel out.</dd>
+    <dt>Tangent space</dt><dd>A way to turn covariance tables into normal number lists that a classifier can use.</dd>
+    <dt>HMM</dt><dd>Hidden Markov model. Tracks which phase the person is in, using only allowed moves between phases.</dd>
+    <dt>ECE</dt><dd>Expected calibration error. Measures whether a stated probability of 0.70 is right about 70% of the time.</dd>
+    <dt>Catch trial</dt><dd>A trial with a ready cue where the person is told not to move. It measures false alarms.</dd>
+    <dt>Co-activation</dt><dd>Biceps and triceps working at the same time, common after a stroke.</dd>
+    <dt>Assist-as-needed</dt><dd>The motor gives only the help the person needs, so they keep trying.</dd>
+    <dt>Gap</dt><dd>Intended elbow angle minus actual elbow angle.</dd>
+    <dt>LSL</dt><dd>Lab Streaming Layer. Sends data streams between programs with one shared clock.</dd>
+  </dl>
+</section>
+
+<footer>Built from the design discussion of 28 September to 17 October 2026. All numbers are placeholders until tested and agreed. Nothing on this page has been tested on a person.</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      if(!el) return;
+      var text = el.innerText;
+      var done = function(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = 'Copy'; }, 2200); };
+      var fallback = function(){
+        try{ var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected, press Ctrl+C'); }
+        catch(e){ done('Select the text to copy'); }
+      };
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){ done('Copied'); }, fallback);
+        } else { fallback(); }
+      } catch(e){ fallback(); }
+    });
+  });
+  var fbtns = document.querySelectorAll('[data-filter]');
+  var rows = document.querySelectorAll('#dlog tbody tr');
+  fbtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-filter');
+      fbtns.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      rows.forEach(function(r){ r.hidden = !(f === 'all' || r.getAttribute('data-s') === f); });
+    });
+  });
+})();
+</script>
